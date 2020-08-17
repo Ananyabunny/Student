@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <main>
+        <h2 id="heading">Review Your Order Details<button id="btn" class="btn btn-primary" (click)="edit()">Edit Details</button></h2>
+        <br>
+        <div id="center">
+            <table class="table table-dark">
+                <thead>
+                    <tr>
+                        <th style="height: 40px; width: 100px;">No</th>
+                        <th>Book</th>
+                        <th>Author</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>SubTotal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let cart of cartProducts; let i=index">
+                        <td>{{i+1}}</td>
+                        <td>{{cart.book.title}}</td>
+                        <td>{{cart.book.author}}</td>
+                        <td>{{cart.book.price}}</td>
+                        <td>{{cart.quantity}}</td>
+                        <td>{{cart.subTotal}}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="4">TOTAL:</td>
+                        <td>{{quantity}}</td>
+                        <td>{{total}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div><br>
+        <h2 id="heading">Your Shipping Information</h2>
+        <div class="col-xl-5 col-lg-6 col-md-8 col-sm-10 mx-auto  form p-3 jumbotron">
+            <form name="formdata" ngNativeValidate (ngSubmit)="onSubmit()" #formdata="ngForm">
+                <div>
+                    <b>Recipient Name<span id="red">*</span></b>
+                    <input type="text" class="form-control border border-dark" [(ngModel)]="order.recipientName" [ngModelOptions]="{standalone: true}" #name=ngModel required>
+                    <div *ngIf="name.invalid && name.touched" class="alert alert-danger">
+                        <span *ngIf="name.errors.required">*Name is Mandatory</span>
+                    </div>
+                </div>
+                <br>
+                <div>
+                    <b>Recipient Phone<span id="red">*</span></b>
+                    <input type="text" class="form-control border border-dark" [(ngModel)]="order.recipientPhoneNumber" [ngModelOptions]="{standalone: true}" pattern="^[0-9]*$" minlength="10" maxlength="10" #phonenumber="ngModel" required>
+                    <div *ngIf="phonenumber.invalid && phonenumber.touched"  class="alert alert-danger">
+                        <span *ngIf="phonenumber.errors.required">*Phone number is Mandatory</span>
+                        <span *ngIf="phonenumber.errors.pattern || phonenumber.errors.maxlength || phonenumber.errors.minlength">*Please Enter Valid Phone number</span>
+                    </div>
+                </div>
+                <br>
+                <div>
+                    <b>Shipping Address<span id="red">*</span></b>
+                    <input type="text" class="form-control border border-dark" [(ngModel)]="order.shippingAddress" [ngModelOptions]="{standalone: true}" #sAdd=ngModel required>
+                    <div *ngIf="sAdd.invalid && sAdd.touched" class="alert alert-danger">
+                        <span *ngIf="sAdd.errors.required">*Address is Mandatory</span>
+                    </div>
+                </div>
+                <br>
+                <div>
+                    <b>Street Address<span id="red">*</span></b>
+                    <input type="text" class="form-control border border-dark" [(ngModel)]="order.streetAddress" [ngModelOptions]="{standalone: true}" #add=ngModel required>
+                    <div *ngIf="add.invalid && add.touched" class="alert alert-danger">
+                        <span *ngIf="add.errors.required">*Address is Mandatory</span>
+                    </div>
+                </div>
+                <br>
+                <div>
+                    <b>City<span id="red">*</span></b>
+                    <input type="text" class="form-control border border-dark" [(ngModel)]="order.city" [ngModelOptions]="{standalone: true}" #city=ngModel required>
+                    <div *ngIf="city.invalid && city.touched" class="alert alert-danger">
+                        <span *ngIf="city.errors.required">*City is Mandatory</span>
+                    </div>
+                </div>
+                <br>
+                <div>
+                    <b>Zip Code<span id="red">*</span></b>
+                    <input type="text" class="form-control border border-dark"  [(ngModel)]="order.zipCode" [ngModelOptions]="{standalone: true}" #zip=ngModel minlength="6" maxlength="6" required>
+                    <div *ngIf="zip.invalid && zip.touched" class="alert alert-danger">
+                        <span *ngIf="zip.errors.required">*Zip Code is Mandatory</span>
+                        <span *ngIf="zip.errors.maxlength || zip.errors.minlength">*Enter valid ZipCode</span>
+                    </div>
+                </div>
+                <br>
+                <div>
+                    <b>Country<span id="red">*</span></b>
+                    <input type="text" class="form-control border border-dark"  [(ngModel)]="order.country" [ngModelOptions]="{standalone: true}" #country=ngModel required>
+                    <div *ngIf="country.invalid && country.touched" class="alert alert-danger">
+                        <span *ngIf="country.errors.required">*Country is Mandatory</span>
+                    </div>
+                </div>
+                <br>
+                <div>
+                    <b>Payment Method<span id="red">*</span></b>
+                    <input type="text" class="form-control border border-dark" value={{order.paymentMethod}} readonly>
+                </div>
+                <br>
+                <button type="submit" id="submit" class="btn btn-primary">Place Order</button>
+            </form>
+        </div>
+        <br>
+        <br>
+    </main>
+</body>
+
+</html>

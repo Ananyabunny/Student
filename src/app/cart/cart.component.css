@@ -1,0 +1,44 @@
+h5 {
+    text-align: center;
+}
+
+main {
+    font-family: 'Lato', sans-serif;
+    padding: 50px;
+    height: 800px;
+}
+
+#btn {
+    float: right;
+}
+
+#submit {
+    background-color: #313a5a;
+    color: white;
+    border-radius: 10%;
+    padding: 1%;
+}
+
+#formData {
+    background-color: rgb(176, 188, 199);
+    width: 90%;
+    height: 90%;
+}
+
+b {
+    font-size: 120%;
+}
+
+#center {
+    text-align: right;
+    align-content: center;
+}
+
+#gap {
+    margin: 10px;
+}
+
+#heading {
+    text-decoration: underline;
+    text-align: center;
+}

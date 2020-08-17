@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <main>
+        <h2 id="heading">Your Cart Details</h2>
+        <table class="table table-dark">
+            <thead>
+                <tr>
+                    <th style="height: 40px; width: 100px;">No</th>
+                    <th>Book</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>SubTotal</th>
+                    <th></th>
+                    <th><button (click)="clearCartByCustomerId()" class="btn btn-danger">Clear Cart</button></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let cart of cartProducts; let i=index">
+                    <td>{{i+1}}</td>
+                    <td>{{cart.book.title}}</td>
+                    <td>{{cart.book.price}}</td>
+                    <td><input type="quan" #quan="ngModel" [(ngModel)]="cart.quantity" size="3" /></td>
+                    <td>{{cart.subTotal}}</td>
+                    <td><button type="submit" class="btn btn-primary" (click)="updateCart(cart.cartId,cart.quantity)">Update</button></td>
+                    <td><button (click)="removecartItem(cart.cartId)" class="btn btn-danger">Delete</button>
+                </tr>
+            </tbody>
+        </table>
+        <button type="submit" id="gap" class="btn btn-primary" (click)="goToHome()">Continue Shopping</button>
+        <button type="submit" id="btn" class="btn btn-primary" (click)="findCustomer()">Check Out</button>
+        <br><br>
+    </main>
+</body>
+
+</html>

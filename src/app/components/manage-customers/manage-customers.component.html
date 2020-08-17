@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <!--<header>
+    <img src="../assets/BookstoreAdminLogo.png" alt="logo">
+    <ul>
+      <li><a>Home</a></li>
+      <li><a routerLink="/manageadmin">Users</a></li>
+      <li><a>Categories</a></li>
+      <li><a>Books</a></li>
+      <li><a routerLink="/managecustomer">Customers</a></li>
+      <li><a>Reviews</a></li>
+      <li><a>Orders</a></li>
+      <li><a routerLink="/logincustomer" (click)="signout()">Sign Out</a></li><br>
+      <span>Welcome {{adminName}}</span>
+    </ul>
+    
+  </header> -->
+
+  <br>
+  <div>
+    <div>
+      <button type="button" (click)="toggleAddCustomer()" class="btn btn-secondary">Add Customer</button>
+      <button type="button" id="btn" (click)="toggleManageCustomer()" class="btn btn-secondary">Manage Customers</button>
+    </div>
+  
+    <div id="add admin" *ngIf="checkAddCustomer">
+                
+      <div >
+      <div id="formData" class="col-xl-6 col-lg-6 col-md-5 col-sm-5 mx-auto  form p-3 jumbotron">
+         <u> <h2 class="text-center" >Create New Customer</h2></u>
+      
+        <form  name="formdata" #formdata="ngForm" novalidate (ngSubmit)="addCustomer(formdata)">
+      
+            <div *ngIf="errorMessageCondition" class="alert alert-danger">
+              {{errorMessage}}
+              </div>
+          <div>
+         <b> *Email</b>
+         <input type="email" placeholder="Enter email" id="id" name="email"  [(ngModel)]="customerInformation.emailAddress" #emailId="ngModel" required pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" class="form-control border border-dark" >
+          <div *ngIf="emailId.invalid && emailId.touched" class="alert alert-danger">
+            <span *ngIf="emailId.errors.required">*Email is Mandatory</span>
+            <span *ngIf="emailId.errors.pattern">*Please Enter Valid Email</span>
+            </div>
+        
+        </div>
+        <div><b>*Full Name</b>
+          <input type="text" placeholder="Enter full name" id="name" name="name"   [(ngModel)]="customerInformation.fullName" #na="ngModel" required pattern=""class="form-control border border-dark" >
+          <div *ngIf="na.invalid && na.touched" class="alert alert-danger">
+            <span *ngIf="na.errors.required">*Full Name is Mandatory</span>
+            <span *ngIf="na.errors.pattern">*Please Enter Correct Name</span>
+            </div>
+        
+        </div>
+       
+      <div><b>*Password</b>
+        <input type="password" placeholder="Enter password" id="password" name="password"   [(ngModel)]="customerInformation.password" #pass="ngModel" required pattern =""  class="form-control border border-dark " >
+        <div *ngIf="pass.invalid && pass.touched" class="alert alert-danger">
+          <span *ngIf="pass.errors.required">*Password is Mandatory</span>
+          <span *ngIf="pass.errors.pattern">*Password contain one number,one character and one special </span>
+        
+        </div>
+      </div>
+
+      
+      <div><b>*Phone Number</b>
+          <input type="number" placeholder="Enter phone number" id="phoneNumber" name="phoneNumber"   [(ngModel)]="customerInformation.phoneNumber" #phoneNumber="ngModel" required pattern="[0-9]{10}" class="form-control border border-dark" >
+          <div *ngIf="phoneNumber.invalid && phoneNumber.touched" class="alert alert-danger">
+            <span *ngIf="phoneNumber.errors.required">*Phone Number is Mandatory</span>
+            <span *ngIf="phoneNumber.errors.pattern">*Please Enter Valid Phone Number</span>
+            </div>
+        </div>
+
+        <div><b>*City</b>
+            <input type="text" placeholder="Enter city" id="city" name="city"   [(ngModel)]="customerInformation.city" #city="ngModel" required pattern="[a-zA-Z]{3,32}"class="form-control border border-dark " >
+            <div *ngIf="city.invalid && city.touched" class="alert alert-danger">
+              <span *ngIf="city.errors.required">*City is Mandatory</span>
+              <span *ngIf="city.errors.pattern">*Please Enter Valid City Name</span>
+              </div>
+          </div>
+
+          <div><b>*Address</b>
+            <input type="text" placeholder="Enter address" id="address" name="address"   [(ngModel)]="customerInformation.address" #address="ngModel" required pattern="" class="form-control border border-dark " >
+            <div *ngIf="address.invalid && address.touched" class="alert alert-danger">
+              <span *ngIf="address.errors.required">*Address is Mandatory</span>
+              <span *ngIf="address.errors.pattern">*Please Enter  Complete Address</span>
+              </div>
+    
+          
+          </div>
+          
+          <div><b>*Zip Code</b>
+              <input type="number" placeholder="Enter Zip Code" id="zipCode" name="zipCode"   [(ngModel)]="customerInformation.zipCode" #zipCode="ngModel" required pattern="[0-9]{6}" class="form-control border border-dark" >
+              <div *ngIf="zipCode.invalid && zipCode.touched" class="alert alert-danger">
+                <span *ngIf="zipCode.errors.required">*Zip Code is Mandatory</span>
+                <span *ngIf="zipCode.errors.pattern">*Please Enter Valid Zip Code</span>
+                </div>
+      
+            </div>
+            <div><b>*Country</b>
+                <input type="text" placeholder="Enter country" id="country" name="country"   [(ngModel)]="customerInformation.country" #country="ngModel" required pattern="[a-zA-Z]{3,64}" class="form-control border border-dark " >
+                <div *ngIf="country.invalid && country.touched" class="alert alert-danger">
+                  <span *ngIf="country.errors.required">*Country name is Mandatory</span>
+                  <span *ngIf="country.errors.pattern">*Please Enter Valid Country Name</span>
+                  </div>
+        
+                    </div>
+
+      
+        <div>
+        <input type="submit" value="Submit" id="submit" [disabled]="!formdata.valid">
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <button  (click)="toggleManageCustomer()"  class="btn btn-light">Cancel </button>
+      </div>
+      </form>
+    </div>
+      </div>
+    </div>
+  </div>
+
+  <br>
+
+  <div class="container" *ngIf="checkManageCustomer">
+  <div class="container">
+    <div class="alert alert-danger" *ngIf="exceptionResponse!=null">
+        <strong>{{exceptionResponse.reason}}</strong>
+    </div>
+    <img *ngIf="queryResponse==null" src="../../assets/no-data-found.png" alt="No Customers Found!" height="460" width="460">
+    <table class="table table-borderless" *ngIf="queryResponse!=null">
+        <thead style="background-color:#313a5a;color: white">
+            <tr>
+              <th>CustomerId</th>
+              <th>Email Address</th>
+              <th>Full Name</th>
+              <th>Phone Number</th>
+              
+              <th>Country</th>
+              <th>Action</th>
+              
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr *ngFor="let customer of queryResponse?.list">
+                <td>{{customer.customerId}}</td>
+                <td>{{customer.emailAddress}}</td>
+                <td>{{customer.fullName}}</td>
+                <td>{{customer.phoneNumber}}</td>
+        
+                <td>{{customer.country}}</td>
+                <!-- (click)="updateCustomer(customer)"
+                (click)="deleteCustomer(customer)" -->
+                <td><button type="button" class="btn btn-primary" (click)="this.toggleEditCustomer(customer.emailAddress);" >Update</button>&nbsp;
+                <button type="button" class="btn btn-danger" (click)="openDialog(customer.emailAddress)" >Delete</button></td>
+            </tr>
+            <tr>
+                <td colspan="6">
+                    <ul class="pagination pagination-sm justify-content-center">
+                        <li class="page-item" [class.active]="queryResponse?.currentPageNumber==i+1"
+                            *ngFor="let item of noOfPages;let i=index">
+                            <a class="page-link" (click)="getAllCustomers(i+1)">
+                                {{i+1}}</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+</div>
+
+
+<div class="modal" *ngIf=showModal>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Delete User</h4>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to delete the Customer?</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-danger" (click)="deleteCustomer()">Delete</button>
+        <button class="btn btn-default" (click)="closeDialog()">Close</button>
+       
+      </div>
+    </div>
+  </div>
+</div>
+<!-- 
+nikhil's work -->
+<div id="edit customer" *ngIf="checkEditCustomer">
+                
+  <div >
+  <div id="formData" class="col-xl-5 col-lg-6 col-md-8 col-sm-10 mx-auto  form p-3 jumbotron">
+     <u> <h2 class="text-center" >Update Customer</h2></u>
+  
+    <form  name="formdata" #formdata="ngForm" novalidate (ngSubmit)="editCustomer(formdata)">
+  
+        <div *ngIf="errorMessageCondition" class="alert alert-danger">
+          {{errorMessage}}
+          </div>
+      
+    <div><b>*Full Name</b>
+      <input type="text" placeholder="Enter full name" id="name" name="name"   [(ngModel)]="customerInformation.fullName"    #na="ngModel" required class="form-control border border-dark" >
+      <div *ngIf="na.invalid && na.touched" class="alert alert-danger">
+        <span *ngIf="na.errors.required">*Full Name is Mandatory</span>
+      
+        </div>
+    
+    </div>
+
+  <div><b>*Phone Number</b>
+    <input type="nummber" placeholder="Enter password" id="password" name="password"   [(ngModel)]="customerInformation.phoneNumber" #pass="ngModel" required pattern =""  class="form-control border border-dark " >
+    <div *ngIf="pass.invalid && pass.touched" class="alert alert-danger">
+      <span *ngIf="pass.errors.required">*Phone Number is Mandatory</span>
+      </div>
+  </div>
+
+  <div><b>*City</b>
+    <input type="text" placeholder="Enter city" id="city" name="city"   [(ngModel)]="customerInformation.city" #city="ngModel" required pattern="[a-zA-Z]{3,32}"class="form-control border border-dark " >
+    <div *ngIf="city.invalid && city.touched" class="alert alert-danger">
+      <span *ngIf="city.errors.required">*City is Mandatory</span>
+      <span *ngIf="city.errors.pattern">*Please Enter Valid City Name</span>
+      </div>
+  </div>
+
+  <div><b>*Zip Code</b>
+      <input type="number" placeholder="Enter Zip Code" id="zipCode" name="zipCode"   [(ngModel)]="customerInformation.zipCode" #zipCode="ngModel" required pattern="[0-9]{6}" class="form-control border border-dark" >
+      <div *ngIf="zipCode.invalid && zipCode.touched" class="alert alert-danger">
+        <span *ngIf="zipCode.errors.required">*Zip Code is Mandatory</span>
+        <span *ngIf="zipCode.errors.pattern">*Please Enter Valid Zip Code</span>
+        </div>
+
+    </div>
+    <div><b>*Country</b>
+        <input type="text" placeholder="Enter country" id="country" name="country"   [(ngModel)]="customerInformation.country" #country="ngModel" required pattern="[a-zA-Z]{3,64}" class="form-control border border-dark " >
+        <div *ngIf="country.invalid && country.touched" class="alert alert-danger">
+          <span *ngIf="country.errors.required">*Country name is Mandatory</span>
+          <span *ngIf="country.errors.pattern">*Please Enter Valid Country Name</span>
+          </div>
+
+            </div>
+
+
+    <div>
+    <input type="submit" value="Submit" id="submit" [disabled]="!formdata.valid">
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <button (click)="toggleManageCustomer()"  class="btn btn-light">Cancel </button>
+  </div>
+  </form>
+</div>
+  </div>
+</div>
+  <!--<footer>
+    <p>Copyright (c) 2020 by Evergreen Books Co., Ltd</p>
+  </footer>-->
+</body>
+
+</html>
